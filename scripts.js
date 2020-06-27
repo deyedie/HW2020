@@ -85,16 +85,27 @@ function rederTaskCtrlOBar(tasks, taskIdx){
     if (taskIdx===0) {
         upE1.disabled = true;
     }
-    upE1.innerText = "↑";
+    upE1.innerText = "⇞";
     upE1.onclick = () =>{
-       //
+        var tmp = tasks[taskIdx];
+    tasks[taskIdx] = tasks[taskIdx - 1]
+    tasks[taskIdx - 1] = tmp;
+    renderEditor();
+    renderTaskItems();
     };
     ctrlbarEl.append(upE1)
 
     let downE1 = document.createElement("button");
-    downE1.innerText = "↓"
+    if (taskIdx === tasks.length - 1) {
+        downE1.disabled = true;
+      }
+    downE1.innerText = "⇟";
     downE1.onclick = () =>{
-       //
+        var tmp = tasks[taskIdx];
+        tasks[taskIdx] = tasks[taskIdx + 1]
+        tasks[taskIdx + 1] = tmp;  
+        renderEditor();
+        renderTaskItems();
     };
     ctrlbarEl.append(downE1)
 
